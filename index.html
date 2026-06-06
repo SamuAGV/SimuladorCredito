@@ -3,34 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plataforma de Simulación de Crédito</title>
+  <title>Simulador Crédito Personal UTVT</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Simulador de Crédito Personal</h1>
-    <form id="credit-form">
-      <label for="monto">Monto del Crédito Solicitado ($):</label>
-      <input type="number" id="monto" value="150000" required>
+    <div class="header">
+      <h1>UTVT</h1>
+      <h2>CREDITO PERSONAL UTVT</h2>
+    </div>
 
-      <label for="tasa">Tasa de Interés Anual Ordinaria (%):</label>
-      <input type="number" id="tasa" value="34" step="0.1" required>
+    <div class="contenido">
+      <div class="izquierda">
+        <h3>DATOS DEL CREDITO</h3>
 
-      <label for="plazo">Plazo del Financiamiento (Meses):</label>
-      <select id="plazo">
-        <option value="12">12 meses</option>
-        <option value="24">24 meses</option>
-        <option value="36">36 meses</option>
-        <option value="48" selected>48 meses</option>
-      </select>
-    </form>
-    <button id="btn-calcular">Calcular Simulación</button>
-    <table id="tabla-amortizacion" border="1">
-      <thead>
-        <tr><th>Mes</th><th>Pago Mensual</th><th>Interés</th><th>IVA (16%)</th><th>Amortización</th><th>Saldo Insoluto</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+        <div class="campo">
+          <label>Nombre del cliente:</label>
+          <input type="text" id="nombre" class="input-amarillo" placeholder="Ej: Juan Perez" value="">
+        </div>
+
+        <div class="campo">
+          <label>Monto autorizado:</label>
+          <input type="number" id="montoAutorizado" class="input-amarillo" placeholder="Ej: 50000" value="" step="1000">
+        </div>
+
+        <div class="campo">
+          <label>Comision por apertura con IVA:</label>
+          <div class="comision-group">
+            <input type="number" id="comisionPorcentaje" class="input-amarillo" placeholder="%" value="" step="0.1" style="width: 80px;"> %
+            <span id="comisionMonto" class="monto-comision">$0.00</span>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label>Total a financiar:</label>
+          <span id="totalFinanciar" class="valor-destacado">$0.00</span>
+        </div>
+
+        <div class="campo">
+          <label>Plazo del credito:</label>
+          <select id="plazo" class="input-amarillo">
+            <option value="" disabled selected>Seleccione plazo</option>
+            <option value="12">12 meses</option>
+            <option value="24">24 meses</option>
+            <option value="36">36 meses</option>
+            <option value="48">48 meses</option>
+            <option value="60">60 meses</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label>Tasa de interes anual:</label>
+          <input type="number" id="tasa" class="input-amarillo" placeholder="Ej: 25" value="" step="0.1"> %
+        </div>
+        
+        <div class="campo">
+          <label>CAT (Costo Anual Total):</label>
+          <input type="number" id="cat" class="input-amarillo" placeholder="Ej: 29.0" value="" step="0.1" style="width: 120px;"> %
+        </div>
+        
+        <div class="campo">
+          <label>Pago por mil:</label>
+          <span id="pagoPorMil" class="valor-destacado">$0.00</span>
+        </div>
+      </div>
+
+      <div class="derecha">
+        <div class="botones">
+          <button id="btn-cotizar">Cotizar</button>
+          <button id="btn-limpiar" class="btn-limpiar">Limpiar</button>
+        </div>
+
+        <div class="info-notas">
+          <p><strong>Notas:</strong></p>
+          <ul>
+            <li>Campos amarillos son para captura de datos</li>
+            <li>Elige la comision, el plazo y la tasa</li>
+            <li>La tasa de interes es de referencia</li>
+            <li>El monto otorgado puede variar</li>
+            <li>Los prepagos se pueden editar en la tabla</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabla-section">
+      <button id="btn-ver-tabla" class="btn-tabla">Ver Tabla de Amortizacion</button>
+      <div id="tabla-container" style="display: none;">
+        <table id="tabla-amortizacion" border="1">
+          <thead>
+            <tr>
+              <th>Mes</th>
+              <th>Saldo de capital</th>
+              <th>Pago de intereses ordinarios</th>
+              <th>Pago fijo mensual</th>
+              <th>Pago IVA Interes</th>
+              <th>Pago Mensual Total</th>
+              <th>Prepagos</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>
